@@ -1,0 +1,42 @@
+{{>prezentacjaPoczatek }}
+    <button onclick="search('specializations')">szukaj</button><br>
+    <strong>SPECJALIZACJE</strong><br>
+    <table>
+        <tr>
+            <td>ID</td>
+            <td>Nazwa</td>
+            <td>Dodano przez</td>
+        </tr>
+        {{{table}}}
+    </table><br>
+    <label id="actionLabel">Dodaj:</label><label id="editedId"></label><br>
+    <form>
+        <label for="name">Nazwa</label><br>
+        <input type="text" id="name" name="name"><br>
+    </form>
+    <button id="addOrEditButton" type="button" onclick="clickAddOrEdit()">DODAJ</button>
+{{>koniec}}
+
+<script src="scripts.js"></script>
+
+
+<script>
+function clickAddOrEdit() {
+    addOrEdit(
+        'specializations',
+        JSON.stringify({
+               name: document.getElementById('name').value
+            }),
+        JSON.stringify({
+                id: document.getElementById('editedId').innerText,
+                name: document.getElementById('name').value
+            })
+        );
+}
+
+function clickRemove(removedId) {
+    remove('specializations', JSON.stringify({
+        id: removedId
+      }));
+}
+</script>

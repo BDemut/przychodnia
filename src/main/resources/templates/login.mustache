@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div align="center">
+            <form>
+                <label for="pesel">PESEL</label><br>
+                <input type="text" id="pesel" name="pesel"><br>
+                <label for="haslo">Haslo</label><br>
+                <input type="password" id="haslo" name="haslo"><br>
+            </form>
+            <button onclick="send()">ZALOGUJ</button>
+        </div>
+    </body>
+
+    <script>
+    function send() {
+      fetch('http://localhost:8082/loginPost', {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            pesel: document.getElementById('pesel').value,
+            password: document.getElementById('haslo').value
+          })
+      }).then(response => {
+        window.location.assign("http://localhost:8082/panel");
+      }).catch(error => {});
+    }
+    </script>
+</html>

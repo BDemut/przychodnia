@@ -1,0 +1,20 @@
+{{>prezentacjaPoczatek }}
+    <button onclick="search('reservations')">szukaj</button><br>
+    <strong>REZERWACJE</strong>
+    <table>
+        <tr>
+            <td>ID</td>
+            <td>Data</td>
+            <td>Godzina od</td>
+            <td>Godzina do</td>
+            <td>Gabinet</td>
+            <td>Imię Lekarza</td>
+            <td>Nazwisko Lekarza</td>
+        </tr>
+        <tr>
+            {{{table}}}
+        </tr>
+    </table><br>
+{{>koniec}}
+
+<script src="scripts.js"></script>

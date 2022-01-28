@@ -1,0 +1,52 @@
+{{>prezentacjaPoczatek}}
+    <button onclick="search('clinics')">szukaj</button><br>
+    <strong>PORADNIE</strong><br>
+    <table>
+        <tr>
+            <td>ID</td>
+            <td>Nazwa</td>
+            <td>Gabinety</td>
+            <td>Dodano przez</td>
+        </tr>
+        {{{table}}}
+    </table><br>
+    <label id="actionLabel">Dodaj:</label><label id="editedId"></label><br>
+    Gabinety:<br>
+    <select name="rooms" id="rooms">
+        {{{roomOptions}}}
+    </select>
+    <button type="button" onclick="select('rooms')">Dodaj gabinet</button><br>
+    <table id = "roomsTable" class="table-small">
+    </table><br>
+    <form>
+        <label for="name">Nazwa</label><br>
+        <input type="text" id="name" name="name"><br>
+    </form>
+
+    <button id="addOrEditButton" type="button" onclick="clickAddOrEdit()">DODAJ</button>
+{{>koniec}}
+
+<script src="scripts.js"></script>
+
+<script>
+function clickAddOrEdit() {
+    addOrEdit(
+        'clinics',
+        JSON.stringify({
+                name: document.getElementById('name').value,
+                rooms: getSelectedNumber('rooms')
+            }),
+        JSON.stringify({
+                id: document.getElementById('editedId').innerText,
+                name: document.getElementById('name').value,
+                rooms: getSelectedNumber('rooms')
+            })
+        );
+}
+
+function clickRemove(removedId) {
+    remove('clinics', JSON.stringify({
+        id: removedId
+      }));
+}
+</script>

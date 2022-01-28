@@ -1,0 +1,46 @@
+{{>prezentacjaPoczatek }}
+    <button onclick="search('degrees')">szukaj</button><br>
+    <strong>STOPNIE NAUKOWE</strong>
+    <table>
+        <tr>
+            <td>ID</td>
+            <td>Skrót</td>
+            <td>Pełna Nazwa</td>
+            <td>Dodano przez</td>
+        </tr>
+        {{{table}}}
+    </table><br>
+    <label id="actionLabel">Dodaj:</label><label id="editedId"></label><br>
+    <form>
+        <label for="short">Skrót</label><br>
+        <input type="text" id="short" name="short"><br>
+        <label for="full">Pełna nazwa</label><br>
+        <input type="text" id="full" name="full"><br>
+    </form>
+    <button id="addOrEditButton" type="button" onclick="clickAddOrEdit()">DODAJ</button>
+{{>koniec}}
+
+<script src="scripts.js"></script>
+
+<script>
+function clickAddOrEdit() {
+    addOrEdit(
+        'degrees',
+        JSON.stringify({
+                short: document.getElementById('short').value,
+                full: document.getElementById('full').value
+            }),
+        JSON.stringify({
+                id: document.getElementById('editedId').innerText,
+                short: document.getElementById('short').value,
+                full: document.getElementById('full').value
+            })
+        );
+}
+
+function clickRemove(removedId) {
+    remove('degrees', JSON.stringify({
+        id: removedId
+      }));
+}
+</script>

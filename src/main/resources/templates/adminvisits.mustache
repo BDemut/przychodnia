@@ -1,0 +1,39 @@
+{{>prezentacjaPoczatek }}
+    <button onclick="search('visits')">szukaj</button><br>
+    <strong>WIZYTY</strong>
+    <table>
+        <tr>
+            <td>ID</td>
+            <td>Data</td>
+            <td>Godzina</td>
+            <td>PESEL Pacjenta</td>
+            <td>Imię Pacjenta</td>
+            <td>Nazwisko Pacjenta</td>
+            <td>PESEL Lekarza</td>
+            <td>Imię Lekarza</td>
+            <td>Nazwisko Lekarza</td>
+            <td>Świadczenia</td>
+        </tr>
+        {{{table}}}
+    </table><br>
+
+    <button type="button" onclick="add()">DODAJ</button>
+{{>koniec}}
+
+<script src="scripts.js"></script>
+
+<script>
+function add() {
+  window.location.assign("http://localhost:8082/visitsAdminForm");
+}
+
+function clickRemove(removedId) {
+    remove('visitsAdmin', JSON.stringify({
+        id: removedId
+      }));
+}
+
+function search() {
+    window.location.assign("http://localhost:8082/visitsAdmin?search=" + document.getElementById('search').value);
+}
+ </script>

@@ -1,0 +1,87 @@
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div>
+    <div>
+        <div align="center">
+            <button type="button" onclick="back()">wróć</button><br>
+            <script>
+            function back() {
+                window.location.assign("http://localhost:8082/panel");
+            }
+            </script>
+            <input type="text" id="searchRooms" name="searchRooms">
+            <button onclick="searchRooms()">szukaj</button><br>
+            <strong>GABINETY</strong>
+            <table>
+                <tr>
+                    <td>Numer</td>
+                    <td>Sprzęt</td>
+                    <td>Dodano przez</td>
+                </tr>
+                {{{roomsTable}}}
+            </table><br>
+            <input type="text" id="search" name="search">
+            <button onclick="search('doctorReservations')">szukaj</button><br>
+            <strong>REZERWACJE</strong>
+            <table>
+                <tr>
+                    <td>ID</td>
+                    <td>Data</td>
+                    <td>Godzina od</td>
+                    <td>Godzina do</td>
+                    <td>Gabinet</td>
+                </tr>
+                {{{table}}}
+            </table><br>
+            <label id="actionLabel">Dodaj:</label><label id="editedId"></label><br>
+            <form>
+                <label for="dateFrom">Data (yyyy-mm-dd):</label><br>
+                <input type="text" id="dateFrom" name="dateFrom"><br>
+                <label for="hourFrom">Godzina od (hh:mm):</label><br>
+                <input type="text" id="hourFrom" name="hourFrom"><br>
+                <label for="until">Godzina do (hh:mm):</label><br>
+                <input type="text" id="until" name="until"><br>
+            </form>
+            Gabinet:
+            <select name="room" id="room">
+                {{{roomsOptions}}}
+            </select><br>
+
+            <button id="addOrEditButton" type="button" onclick="clickAddOrEdit()">DODAJ</button>
+{{>koniec}}
+
+<script src="scripts.js"></script>
+
+
+<script>
+function clickAddOrEdit() {
+    addOrEdit(
+        'doctorReservations',
+        JSON.stringify({
+               dateFrom: document.getElementById('dateFrom').value,
+               hourFrom: document.getElementById('hourFrom').value,
+               until: document.getElementById('until').value,
+               room: { "number" : document.getElementById('room').value }
+            }),
+        JSON.stringify({
+                id: document.getElementById('editedId').innerText,
+                dateFrom: document.getElementById('dateFrom').value,
+               hourFrom: document.getElementById('hourFrom').value,
+               until: document.getElementById('until').value,
+               room: { "number" : document.getElementById('room').value }
+            })
+        );
+}
+
+function clickRemove(removedId) {
+    remove('doctorReservations', JSON.stringify({
+        id: removedId
+      }));
+}
+
+function searchRooms() {
+    window.location.assign("http://localhost:8082/doctorReservations?search=" + document.getElementById('searchRooms').value + "&rooms=true");
+}
+</script>

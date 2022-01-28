@@ -1,0 +1,56 @@
+{{>prezentacjaPoczatek }}
+<button onclick="search('admins')">szukaj</button><br>
+<strong>ADMINISTRATORZY</strong><br>
+<table>
+    <tr>
+        <td>ID</td>
+        <td>PESEL</td>
+        <td>Imię</td>
+        <td>Nazwisko</td>
+    </tr>
+    {{{table}}}
+</table><br>
+<label id="actionLabel">Dodaj:</label><label id="editedId"></label><br>
+
+<form>
+    <label for="PESEL">PESEL:</label><br>
+    <input type="text" id="pesel" name="PESEL"><br>
+    <label for="password">Hasło:</label><br>
+    <input type="password" id="password" name="password"><br>
+    <label for="fname">Imię:</label><br>
+    <input type="text" id="fname" name="fname"><br>
+    <label for="lname">Nazwisko:</label><br>
+    <input type="text" id="lname" name="lname"><br>
+</form>
+
+<button id="addOrEditButton" type="button" onclick="clickAddOrEdit()">DODAJ</button>
+{{>koniec}}
+
+<script src="scripts.js"></script>
+
+<script>
+function clickAddOrEdit() {
+    addOrEdit(
+        'admins',
+        JSON.stringify({
+                pesel: document.getElementById('pesel').value,
+                fname: document.getElementById('fname').value,
+                lname: document.getElementById('lname').value,
+                password: document.getElementById('password').value
+            }),
+        JSON.stringify({
+                id: document.getElementById('editedId').innerText,
+                pesel: document.getElementById('pesel').value,
+                fname: document.getElementById('fname').value,
+                lname: document.getElementById('lname').value,
+                password: document.getElementById('password').value,
+            })
+        );
+}
+
+function clickRemove(removedId) {
+    remove('admins', JSON.stringify({
+        id: removedId
+      }));
+}
+</script>

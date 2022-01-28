@@ -1,0 +1,30 @@
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<div align="center">
+    Zalogowano jako: {{fname}} {{lname}}, lekarz<br>
+    <button type="button" onclick="visits()">Wizyty</button><br>
+    <button type="button" onclick="myreservations()">Moje Rezerwacje</button><br>
+    <button type="button" onclick="reservations()">Wszystkie Rezerwacje</button><br>
+    <button type="button" onclick="services()">Świadczenia</button><br>
+
+    <button type="button" onclick="logout()">WYLOGUJ</button><br>
+</div>
+
+<script>
+function logout() {
+    window.location.assign("http://localhost:8082/logout");
+}
+function services() {
+    window.location.assign("http://localhost:8082/services");
+}
+function myreservations() {
+    window.location.assign("http://localhost:8082/doctorReservations");
+}
+function reservations() {
+    window.location.assign("http://localhost:8082/reservations");
+}
+function visits() {
+    window.location.assign("http://localhost:8082/visitsDoctor");
+}
+</script>

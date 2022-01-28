@@ -1,0 +1,50 @@
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div align="center">
+        <button type="button" onclick="back()">wróć</button><br>
+        <strong>UMÓW NA WIZYTĘ</strong><br>
+        Szukaj lekarza<br>
+        <input type="text" id="search" name="search">
+        <button onclick="search()">szukaj</button><br>
+        ZNALEZIENI LEKARZE:<br>
+        <table>
+            <tr>
+                <td>ID</td>
+                <td>PESEL</td>
+                <td>Imię</td>
+                <td>Nazwisko</td>
+                <td>Stopień n.</td>
+                <td>Specjalizacje</td>
+                <td>Przychodnie</td>
+                <td>Dodano przez</td>
+            </tr>
+            {{{table}}}
+        </table><br>
+    </div>
+</body>
+
+<script>
+function back() {
+    window.location.assign("http://localhost:8082/visitsAdminForm");
+}
+function choose(chosenId) {
+    fetch('http://localhost:8082/visitsAdminChooseDoctor', {
+            method: "POST",
+            headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: chosenId
+            })
+        }).then(response => {
+            window.location.assign("http://localhost:8082/visitsAdminForm3");
+        }).catch(error => {});
+}
+
+function search() {
+    window.location.assign("http://localhost:8082/visitsAdminForm2?search=" + document.getElementById('search').value);
+}
+</script>

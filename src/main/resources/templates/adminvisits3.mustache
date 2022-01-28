@@ -1,0 +1,47 @@
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div align="center">
+        <button type="button" onclick="back()">wróć</button><br>
+        <strong>UMÓW NA WIZYTĘ</strong><br>
+
+        Wybierz świadczenia:<br>
+        <select name="services" id="services">
+            {{{servicesOptions}}}
+        </select>
+        <button type="button" onclick="select('services')">Dodaj świadczenie</button><br>
+        <table id="servicesTable" class="table-small">
+        </table><br>
+
+        Dzień:
+        <select name="date" id="date">
+            {{{dateOptions}}}
+        </select><br>
+
+        <button type="button" onclick="next()">DALEJ</button>
+    </div>
+</body>
+
+<script src="scripts.js"></script>
+
+<script>
+function back() {
+    window.location.assign("http://localhost:8082/visitsAdminForm2");
+}
+function next() {
+    fetch('http://localhost:8082/visitsAdminChooseDateAndServices', {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                date: document.getElementById('date').value,
+                services: getSelectedName('services')
+            })
+        }).then(response => {
+            window.location.assign("http://localhost:8082/visitsAdminForm4");
+        }).catch(error => {});
+}
+</script>

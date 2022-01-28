@@ -1,0 +1,61 @@
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div align="center">
+        <button type="button" onclick="back()">wróć</button><br>
+        <strong>UMÓW NA WIZYTĘ</strong><br>
+        Proponowany termin:<br>
+        <table class="table-small">
+            <tr>
+                <td><b>{{time}}</b></td>
+            </tr>
+        </table><br>
+
+        Długość wizyty: {{duration}} minut<br>
+        Pozostałe wolne terminy:<br>
+        <table class="table-small">
+            {{{table}}}
+        </table><br>
+        <form>
+            <label for="time">Wpisz godzinę (hh:mm):</label><br>
+            <input type="text" id="time" name="time"><br>
+        </form>
+
+        <button type="button" onclick="confirm()">UMÓW</button>
+    </div>
+</body>
+
+<script>
+
+function back() {
+    window.location.assign("http://localhost:8082/visitsAdminForm3");
+}
+
+function confirm() {
+    fetch('http://localhost:8082/visitsAdminChooseTime', {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                time: document.getElementById('time').value
+            })
+        }).then(response => {
+            if (response.ok) {
+                window.location.assign("http://localhost:8082/visitsAdmin");
+           } else {
+                if (response.status == 403) {
+                    window.location.assign("http://localhost:8082/visitsAdminForm4");
+                    response.json().then(data => {
+                        window.alert(data.message);
+                    })
+                } else {
+                    window.location.assign("http://localhost:8082/visitsAdminForm4");
+                    window.alert("Podano nieprawidłowe dane!");
+                }
+           }
+        }).catch(error => {});
+}
+</script>

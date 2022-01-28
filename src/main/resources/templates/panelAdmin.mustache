@@ -1,0 +1,50 @@
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<div align="center">
+    Zalogowano jako: {{fname}} {{lname}}, administrator<br>
+    <button type="button" onclick="visits()">Wizyty</button><br>
+    <button type="button" onclick="doctors()">Lekarze</button><br>
+    <button type="button" onclick="reservations()">Rezerwacje</button><br>
+    <button type="button" onclick="clinics()">Poradnie</button><br>
+    <button type="button" onclick="rooms()">Gabinety</button><br>
+    <button type="button" onclick="specializations()">Specjalizacje</button><br>
+    <button type="button" onclick="degrees()">Stopnie naukowe</button><br>
+    <button type="button" onclick="equipment()">Sprzęt</button><br>
+    <button type="button" onclick="admins()">Administratorzy</button><br><br>
+
+    <button type="button" onclick="logout()">WYLOGUJ</button><br>
+</div>
+
+<script>
+function logout() {
+    window.location.assign("http://localhost:8082/logout");
+}
+function doctors() {
+    window.location.assign("http://localhost:8082/doctors");
+}
+function specializations() {
+    window.location.assign("http://localhost:8082/specializations");
+}
+function degrees() {
+    window.location.assign("http://localhost:8082/degrees");
+}
+function equipment() {
+    window.location.assign("http://localhost:8082/equipment");
+}
+function rooms() {
+    window.location.assign("http://localhost:8082/rooms");
+}
+function clinics() {
+    window.location.assign("http://localhost:8082/clinics");
+}
+function visits() {
+    window.location.assign("http://localhost:8082/visitsAdmin");
+}
+function reservations() {
+    window.location.assign("http://localhost:8082/reservations");
+}
+function admins() {
+    window.location.assign("http://localhost:8082/admins");
+}
+</script>

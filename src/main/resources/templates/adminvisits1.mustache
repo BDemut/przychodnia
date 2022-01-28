@@ -1,0 +1,80 @@
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div align="center">
+        <button type="button" onclick="back()">wróć</button><br>
+        <strong>UMÓW NA WIZYTĘ</strong><br>
+        Szukaj pacjenta<br>
+        <input type="text" id="search" name="search">
+        <button onclick="search('visitsAdminForm')">szukaj</button><br>
+        ZNALEZIENI PACJENCI:<br>
+        <table>
+            <tr>
+                <td>ID</td>
+                <td>PESEL</td>
+                <td>Imię</td>
+                <td>Nazwisko</td>
+                <td>Dodano przez</td>
+            </tr>
+            {{{table}}}
+        </table><br>
+
+        <label id="actionLabel">Dodaj:</label><label id="editedId"></label><br>
+        <form>
+            <label for="pesel">PESEL</label><br>
+            <input type="text" id="pesel" name="pesel"><br>
+            <label for="fname">Imię</label><br>
+            <input type="text" id="fname" name="fname"><br>
+            <label for="lname">Nazwisko</label><br>
+            <input type="text" id="lname" name="lname"><br>
+        </form>
+        <button id="addOrEditButton" type="button" onclick="clickAddOrEdit()">DODAJ</button>
+    </div>
+</body>
+
+<script src="scripts.js"></script>
+
+<script>
+function clickAddOrEdit() {
+    addOrEdit(
+        'visitsAdminForm',
+        JSON.stringify({
+                pesel: document.getElementById('pesel').value,
+                fname: document.getElementById('fname').value,
+                lname: document.getElementById('lname').value
+            }),
+        JSON.stringify({
+                id: document.getElementById('editedId').innerText,
+                pesel: document.getElementById('pesel').value,
+                fname: document.getElementById('fname').value,
+                lname: document.getElementById('lname').value
+            })
+        );
+}
+
+function clickRemove(removedId) {
+    remove('visitsAdminForm', JSON.stringify({
+        id: removedId
+      }));
+}
+
+function choose(chosenId) {
+    fetch('http://localhost:8082/visitsAdminChoosePatient', {
+            method: "POST",
+            headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: chosenId
+            })
+        }).then(response => {
+            window.location.assign("http://localhost:8082/visitsAdminForm2");
+        }).catch(error => {});
+}
+
+function back() {
+    window.location.assign("http://localhost:8082/visitsAdmin");
+}
+</script>

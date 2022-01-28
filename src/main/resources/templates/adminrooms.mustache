@@ -1,0 +1,50 @@
+{{>prezentacjaPoczatek }}
+    <button onclick="search('rooms')">szukaj</button><br>
+    <strong>GABINETY</strong>
+    <table>
+        <tr>
+            <td>Numer</td>
+            <td>Sprzęt</td>
+            <td>Dodano przez</td>
+        </tr>
+        {{{table}}}
+    </table><br>
+    <label id="actionLabel">Dodaj:</label><label id="editedId"></label><br>
+    Sprzęt:<br>
+    <select name="equipment" id="equipment">
+        {{{equipmentOptions}}}
+    </select>
+    <button type="button" onclick="select('equipment')">Dodaj sprzęt</button><br>
+    <table id = "equipmentTable" class="table-small">
+    </table><br>
+    <form>
+        <label for="number">Numer</label><br>
+        <input type="text" id="number" name="number"><br>
+    </form>
+
+    <button id="addOrEditButton" type="button" onclick="clickAddOrEdit()">DODAJ</button>
+{{>koniec}}
+
+<script src="scripts.js"></script>
+
+<script>
+function clickAddOrEdit() {
+    addOrEdit(
+        'rooms',
+        JSON.stringify({
+                number: document.getElementById('number').value,
+                equipment: getSelectedName('equipment')
+            }),
+        JSON.stringify({
+                number: document.getElementById('number').value,
+                equipment: getSelectedName('equipment')
+            })
+        );
+}
+
+function clickRemove(removedId) {
+    remove('rooms', JSON.stringify({
+        number: removedId
+      }));
+}
+</script>

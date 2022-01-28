@@ -1,0 +1,52 @@
+{{>prezentacjaPoczatek }}
+<button onclick="search('visitsDoctor')">szukaj</button><br>
+<strong>WIZYTY</strong>
+<table>
+    <tr>
+        <td>ID</td>
+        <td>Data</td>
+        <td>Godzina</td>
+        <td>PESEL Pacjenta</td>
+        <td>Imię Pacjenta</td>
+        <td>Nazwisko Pacjenta</td>
+        <td>Świadczenia</td>
+        <td>Notatka</td>
+    </tr>
+    {{{table}}}
+</table><br>
+<label id="actionLabel">Edytuj:</label><label id="editedId"></label><br>
+<form>
+    <label for="note">Notatka:</label><br>
+    <input type="text" id="note" name="note"><br>
+</form>
+
+<button id="addOrEditButton" type="button" onclick="clickEdit()">EDYTUJ</button>
+{{>koniec}}
+
+<script src="scripts.js"></script>
+
+<script>
+function clickEdit() {
+if (document.getElementById('editedId').innerText != '') {
+    fetch('http://localhost:8082/visitsDoctorPost?crudType=EDIT', {
+                method: "POST",
+                headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id: document.getElementById('editedId').innerText,
+                    note: document.getElementById('note').value
+            })
+        }).then(response => {
+        window.location.assign("http://localhost:8082/visitsDoctor");
+        }).catch(error => {});
+    }
+}
+
+function clickRemove(removedId) {
+    remove('visitsDoctor', JSON.stringify({
+        id: removedId
+      }));
+}
+ </script>
